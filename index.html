@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake News Detection System</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <main class="container">
+    <!-- Animated background elements -->
+    <div class="background">
+      <div class="grid-overlay"></div>
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
+    
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <i class="fa-solid fa-shield"></i>
+        <h1>Fake News Detector</h1>
+      </div>
+      <p class="subtitle">Our advanced AI system analyzes news content to determine authenticity with high precision</p>
+    </header>
+    
+    <!-- Main content -->
+    <div class="card">
+      <div class="card-header-line"></div>
+      
+      <!-- Check News Tab -->
+      <div class="tab-content active" id="check-tab">
+        <div class="input-group">
+          <textarea id="news-text" placeholder="Paste the news article here..."></textarea>
+          <button id="clear-text" class="icon-btn">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        
+        <div class="button-container">
+          <button id="check-btn" class="primary-btn" disabled>
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Verify News
+          </button>
+          <div class="tooltip">Click to analyze the news article</div>
+        </div>
+        
+        <!-- Analysis Progress (initially hidden) -->
+        <div id="analysis-progress" class="progress-container hidden">
+          <div class="progress-info">
+            <span id="analysis-stage">Parsing text...</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+          <div class="progress-bar">
+            <div id="progress-indicator" class="progress-indicator"></div>
+          </div>
+        </div>
+        
+        <!-- Results (initially hidden) -->
+        <div id="results" class="results hidden">
+          <!-- Content will be dynamically inserted here -->
+        </div>
+        
+        <div class="instructions">
+          <p>Enter or paste a news article in the text box above and click "Verify News" to analyze its authenticity.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Templates for dynamic content -->
+  <template id="real-result-template">
+    <div class="result real">
+      <div class="result-header">
+        <div class="icon-container">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+        <div>
+          <h3>Authentic Content</h3>
+          <p>Our analysis indicates this news is likely authentic and trustworthy.</p>
+        </div>
+      </div>
+      
+      <div class="confidence-container">
+        <div class="confidence-header">
+          <div>
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Confidence Score</span>
+          </div>
+          <span class="confidence-value">85%</span>
+        </div>
+        <div class="confidence-bar">
+          <div class="confidence-indicator real" style="width: 85%"></div>
+        </div>
+      </div>
+      
+      <div class="details-grid">
+        <div class="detail-box">
+          <h4>
+            <i class="fa-solid fa-circle-info"></i>
+            Analysis Factors
+          </h4>
+          <ul>
+            <li><i class="fa-solid fa-chevron-right"></i> Source credibility assessment</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Fact verification</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Language pattern analysis</li>
+          </ul>
+        </div>
+        
+        <div class="detail-box">
+          <h4>
+            <i class="fa-solid fa-circle-info"></i>
+            Recommendations
+          </h4>
+          <ul>
+            <li><i class="fa-solid fa-chevron-right"></i> Safe to share with others</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Check publication date</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Consider author credentials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <template id="fake-result-template">
+    <div class="result fake">
+      <div class="result-header">
+        <div class="icon-container">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <div>
+          <h3>Suspicious Content</h3>
+          <p>Our analysis indicates this news is likely fake or contains misleading information.</p>
+        </div>
+      </div>
+      
+      <div class="confidence-container">
+        <div class="confidence-header">
+          <div>
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Confidence Score</span>
+          </div>
+          <span class="confidence-value">85%</span>
+        </div>
+        <div class="confidence-bar">
+          <div class="confidence-indicator fake" style="width: 85%"></div>
+        </div>
+      </div>
+      
+      <div class="details-grid">
+        <div class="detail-box">
+          <h4>
+            <i class="fa-solid fa-circle-info"></i>
+            Analysis Factors
+          </h4>
+          <ul>
+            <li><i class="fa-solid fa-chevron-right"></i> Source credibility assessment</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Fact verification</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Language pattern analysis</li>
+          </ul>
+        </div>
+        
+        <div class="detail-box">
+          <h4>
+            <i class="fa-solid fa-circle-info"></i>
+            Recommendations
+          </h4>
+          <ul>
+            <li><i class="fa-solid fa-chevron-right"></i> Verify with additional sources</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Check publication date</li>
+            <li><i class="fa-solid fa-chevron-right"></i> Consider author credentials</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
